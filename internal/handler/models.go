@@ -16,7 +16,9 @@ type UserID struct {
 
 type UserAuth struct {
 	Body struct {
+		Addr string `json:"addr,omitempty" doc:"client address" example:"1.1.1.1"`
 		Auth string `json:"auth" doc:"auth data" example:"hardpassword1234"`
+		Tx   int    `json:"tx,omitempty"`
 	}
 }
 

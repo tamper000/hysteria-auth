@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -34,6 +35,7 @@ func main() {
 	// Create server
 	webCfg := huma.DefaultConfig("Hysteria Auth", version)
 	webCfg.FieldsOptionalByDefault = false
+	webCfg.CreateHooks = nil
 
 	api := humachi.New(router, webCfg)
 	handlers := handler.New(db)
@@ -48,7 +50,7 @@ func main() {
 		WriteTimeout:      time.Second * 5,
 	}
 
-	log.Println("Start web server")
+	log.Println(fmt.Sprintf("Start web server on %s port", cfg.Port))
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil && err != http.ErrServerClosed {
